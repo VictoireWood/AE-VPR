@@ -1,0 +1,35 @@
+# Python / notebooks
+__pycache__/
+*/__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Editors
+.vscode/
+.idea/
+
+# Experiment outputs
+logs/
+LOGS/
+cache/
+runs/
+wandb/
+outputs/
+results/
+
+# Model weights and large artifacts
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.npy
+*.npz
+*.pkl
+*.pickle
+
+# Local data. Keep public datasets outside the repository and pass paths by CLI.
+data/
+datasets/
+checkpoints/
+pretrained/

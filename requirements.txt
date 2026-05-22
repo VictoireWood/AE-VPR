@@ -1,0 +1,14 @@
+einops
+haversine
+numpy
+opencv-python
+pandas
+Pillow
+psutil
+scikit-learn
+timm
+torch
+torchmetrics
+torchvision
+tqdm
+utm
