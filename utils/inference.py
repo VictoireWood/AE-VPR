@@ -7,7 +7,7 @@ from models.classifiers.classifiers import LinearLayer
 
 import pandas as pd
 
-from hc_db_cut import h_max, h_min, class_interval, classes_centers, classes_num
+from utils.pipeline_ops import CLASSES_CENTERS, CLASSES_NUM
 
 LR_N = [1, 2, 3]
 threshold_list = [25, 50]
@@ -25,7 +25,7 @@ def compute_pred(criterion, descriptors):
         except:
             return torch.mm(descriptors, criterion.weight)
 
-def inference(args, model:torch.nn.Module, classifier, test_dl:DataLoader, test_img_num, classes_centers=classes_centers):
+def inference(args, model:torch.nn.Module, classifier, test_dl:DataLoader, test_img_num, classes_centers=CLASSES_CENTERS):
     # try:
     #    threshold = args.threshold
     # except:
@@ -43,9 +43,9 @@ def inference(args, model:torch.nn.Module, classifier, test_dl:DataLoader, test_
 
     query_heights = torch.zeros(test_img_num)
     query_labels = torch.zeros(test_img_num)
-    pred_labels = torch.zeros(test_img_num, classes_num)
-    pred_heights = torch.zeros(test_img_num, classes_num)
-    pred_distances = torch.zeros(test_img_num, classes_num)
+    pred_labels = torch.zeros(test_img_num, CLASSES_NUM)
+    pred_heights = torch.zeros(test_img_num, CLASSES_NUM)
+    pred_distances = torch.zeros(test_img_num, CLASSES_NUM)
     # global classes_centers
     classes_centers = torch.tensor(classes_centers)
     

@@ -54,7 +54,6 @@ Datasets, checkpoints, logs, and generated tiles are intentionally excluded from
 ├── dataloaders/                # Dataset definitions and filename parsers
 ├── models/                     # Backbones, aggregators, and classifiers
 ├── utils/                      # Inference, FFT, retrieval, WCE, and checkpoint helpers
-├── tools/make_debug_dataset.py # Tiny local debug dataset generator
 ├── docs/DATA_FORMAT.md         # Dataset layout details
 └── examples/commands.md        # Common command examples
 ```
@@ -91,23 +90,6 @@ year, origin_img, flight_height, flight_class, rotation_angle, loc_x, loc_y
 ```
 
 More details are in [docs/DATA_FORMAT.md](docs/DATA_FORMAT.md).
-
-## Quick Debug Data
-
-You can create a small synthetic-label debug dataset from local map imagery:
-
-```bash
-python tools/make_debug_dataset.py --overwrite
-```
-
-This writes:
-
-```text
-data/debug/height_classification/train
-data/debug/height_classification/test
-```
-
-The generated data is for parser and dataloader smoke tests only, not for reporting paper metrics.
 
 ## Training
 
@@ -179,7 +161,7 @@ python eval_time_performance.py \
 
 - Large files are ignored by `.gitignore`, including `data/`, `datasets/`, `logs/`, `cache/`, checkpoints, NumPy arrays, and model weights.
 - The code assumes dataset-specific filename metadata for altitude and coordinate parsing. Keep the downloaded dataset layout unless you also update the dataloaders.
-- The debug dataset generator creates synthetic labels and should only be used for software checks.
+- Public dataset names are limited to the four datasets evaluated in the paper: `ct01`, `ct02`, `qd01`, and `qd02`.
 
 ## Citation
 

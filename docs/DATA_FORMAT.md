@@ -30,35 +30,12 @@ The CSV columns used by the main dataloaders are:
 
 | Value | Loader |
 | --- | --- |
-| `ct01`, `ct02`, or other synthetic dataset names | `TestDataset` |
-| `new_photo` / `qd_test*` | `TestDatasetNew` |
-| `real_photo` | `realHCDataset_N` using `--val_set_path` |
+| `ct01`, `ct02` | `TestDataset` |
+| `qd01`, `qd02` | `QingdaoFlightDataset` |
 
 ## Altitude Bins
 
 The default fixed-bin setting in the paper is `--M 50`, corresponding to 50 m altitude intervals. Grouped classifiers are controlled by `--N`.
-
-## Debug Dataset
-
-For parser, dataloader, and smoke-test debugging, generate a compact synthetic-label dataset from the local map imagery:
-
-```bash
-python tools/make_debug_dataset.py --overwrite
-```
-
-The generated layout is:
-
-```text
-data/debug/height_classification/
-├── train/
-│   ├── Dataframes/debug_height.csv
-│   └── Images/debug_height/*.png
-└── test/
-    ├── Dataframes/debug_height.csv
-    └── Images/debug_height/*.png
-```
-
-The debug labels are only for software checks; they should not be used for paper metrics.
 
 ## Files Not To Commit
 

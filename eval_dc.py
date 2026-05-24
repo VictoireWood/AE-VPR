@@ -19,7 +19,7 @@ from math import sqrt
 import numpy as np
 import platform
 
-from dataloaders.HCDataset import realHCDataset_N, InfiniteDataLoader, HCDataset_shN, TestDataset
+from dataloaders.HCDataset import HCDataset_shN
 from models import helper
 import commons
 
@@ -36,11 +36,8 @@ args = parser.parse_arguments()
 
 assert args.train_set_path is not None, 'you must specify the train set path'
 assert os.path.exists(args.train_set_path), 'train set path must exist'
-assert (args.test_set_path is not None) or (args.val_set_path is not None), 'you must specify the test set path'
-if args.test_set_path is not None:
-    assert os.path.exists(args.test_set_path), 'test set path must exist'
-if args.val_set_path is not None:
-    assert os.path.exists(args.val_set_path), 'val set path must exist (real photo)'
+assert args.test_set_path is not None, 'you must specify the test set path'
+assert os.path.exists(args.test_set_path), 'test set path must exist'
 
 
 

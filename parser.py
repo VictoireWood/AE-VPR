@@ -5,16 +5,10 @@ from datetime import datetime
 
 
 DATASET_CHOICES = [
-    "qd3.5x5",
     "ct01",
     "ct02",
-    "2022",
-    "2013",
-    "qd_train",
-    "qd_train1",
-    "qd_train2",
-    "202501",
-    "debug_height",
+    "qd01",
+    "qd02",
 ]
 
 
@@ -40,10 +34,9 @@ def parse_arguments():
     training.add_argument("--resume_model", type=str, default=None, help="Path to a *_model.pth model checkpoint.")
 
     data = parser.add_argument_group("data")
-    data.add_argument("--dataset_name", type=str, default="qd3.5x5", choices=DATASET_CHOICES, help="Training dataset key.")
+    data.add_argument("--dataset_name", type=str, default="ct01", choices=DATASET_CHOICES, help="Training dataset key.")
     data.add_argument("--test_set_list", nargs="+", type=str, default=None, help="One or more test dataset keys.")
     data.add_argument("--train_set_path", type=str, default=None, help="Path to the training root.")
-    data.add_argument("--val_set_path", type=str, default=None, help="Path to the real-photo validation root.")
     data.add_argument("--test_set_path", type=str, default=None, help="Path to the test root.")
     data.add_argument("--train_resize", type=int, nargs=2, default=(336, 448), metavar=("HEIGHT", "WIDTH"), help="Training image resize.")
     data.add_argument("--test_resize", type=int, nargs="+", default=[336], help="Resize argument passed to torchvision.transforms.Resize during evaluation.")

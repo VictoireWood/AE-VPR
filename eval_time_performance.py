@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 
 import parser
 import commons
-from dataloaders.HCDataset import HCDataset_shN, TestDataset, TestDatasetNew
+from dataloaders.HCDataset import HCDataset_shN
 from utils.checkpoint import resume_model_with_classifiers
 from utils.experiment import build_classifiers, build_test_dataset, get_dataset_split_names, make_backbone_info
 from utils.inference import inference_latency_memory, inference_with_groups_csv
@@ -32,9 +32,8 @@ args = parser.parse_arguments()
 
 assert args.train_set_path is not None, 'you must specify the train set path'
 assert os.path.exists(args.train_set_path), 'train set path must exist'
-assert (args.test_set_path is not None) or (args.val_set_path is not None), 'you must specify the test set path'
-if args.test_set_path is not None:
-    assert os.path.exists(args.test_set_path), 'test set path must exist'
+assert args.test_set_path is not None, 'you must specify the test set path'
+assert os.path.exists(args.test_set_path), 'test set path must exist'
 
 
 

@@ -7,15 +7,8 @@ from models.classifiers import AAMC, LMCC, QAMC, LinearLayer
 
 def get_dataset_split_names(args):
     dataset_name = args.dataset_name
-    if dataset_name in {"ct01", "ct02"}:
-        train_dataset_folders = [dataset_name]
-        default_test_datasets = [dataset_name]
-    elif dataset_name == "2022" or "2022" in dataset_name:
-        train_dataset_folders = [dataset_name]
-        default_test_datasets = ["new_photo"]
-    else:
-        train_dataset_folders = [dataset_name]
-        default_test_datasets = ["new_photo"]
+    train_dataset_folders = [dataset_name]
+    default_test_datasets = [dataset_name]
 
     test_datasets = args.test_set_list if args.test_set_list is not None else default_test_datasets
     if isinstance(test_datasets, str):
@@ -50,20 +43,24 @@ def make_backbone_info(args):
 
 
 def build_test_dataset(args, test_datasets, test_transform):
-    from dataloaders.HCDataset import TestDataset, TestDatasetNew, realHCDataset_N
+    from dataloaders.HCDataset import QingdaoFlightDataset, TestDataset
 
     datasets = []
     dataframe_backed_sets = []
 
     for dataset_name in test_datasets:
-        if dataset_name == "real_photo":
-            if args.val_set_path is None:
-                raise ValueError("--val_set_path is required for real_photo evaluation")
-            datasets.append(realHCDataset_N(base_path=args.val_set_path, M=args.M, N=args.N, transform=test_transform))
-        elif dataset_name == "new_photo" or "qd_test" in dataset_name:
+        if dataset_name in {"qd01", "qd02"}:
             if args.test_set_path is None:
-                raise ValueError("--test_set_path is required for new_photo/qd_test evaluation")
-            datasets.append(TestDatasetNew(test_folder=args.test_set_path, M=args.M, N=args.N, image_size=args.test_resize))
+                raise ValueError("--test_set_path is required for QD01/QD02 evaluation")
+            datasets.append(
+                QingdaoFlightDataset(
+                    test_folder=args.test_set_path,
+                    dataset_name=dataset_name,
+                    M=args.M,
+                    N=args.N,
+                    image_size=args.test_resize,
+                )
+            )
         else:
             dataframe_backed_sets.append(dataset_name)
 

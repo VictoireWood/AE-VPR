@@ -7,6 +7,13 @@ import torchvision.transforms.functional as TF
 from PIL import Image
 
 
+H_MIN = 100
+H_MAX = 700
+ALTITUDE_INTERVAL = 50
+CLASSES_NUM = (H_MAX - H_MIN) // ALTITUDE_INTERVAL
+CLASSES_CENTERS = [ALTITUDE_INTERVAL * (i + 0.5) + H_MIN for i in range(CLASSES_NUM)]
+
+
 def altitude_to_class_index(height: float, h_min: float = 100.0, delta_h: float = 50.0) -> int:
     """Map a metric altitude to a zero-based fixed-interval altitude class."""
     if height < h_min:
