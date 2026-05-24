@@ -6,7 +6,6 @@ from datetime import datetime
 
 DATASET_CHOICES = [
     "qd3.5x5",
-    "UAV-VisLoc",
     "ct01",
     "ct02",
     "2022",
@@ -14,8 +13,6 @@ DATASET_CHOICES = [
     "qd_train",
     "qd_train1",
     "qd_train2",
-    "VL08",
-    "VL09",
     "202501",
     "debug_height",
 ]

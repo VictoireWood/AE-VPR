@@ -50,7 +50,7 @@ def make_backbone_info(args):
 
 
 def build_test_dataset(args, test_datasets, test_transform):
-    from dataloaders.HCDataset import TestDataset, TestDatasetNew, realHCDataset_N, visloc_test
+    from dataloaders.HCDataset import TestDataset, TestDatasetNew, realHCDataset_N
 
     datasets = []
     dataframe_backed_sets = []
@@ -64,18 +64,6 @@ def build_test_dataset(args, test_datasets, test_transform):
             if args.test_set_path is None:
                 raise ValueError("--test_set_path is required for new_photo/qd_test evaluation")
             datasets.append(TestDatasetNew(test_folder=args.test_set_path, M=args.M, N=args.N, image_size=args.test_resize))
-        elif "VL" in dataset_name:
-            if args.test_set_path is None:
-                raise ValueError("--test_set_path is required for UAV-VisLoc evaluation")
-            datasets.append(
-                visloc_test(
-                    test_folder=args.test_set_path,
-                    number=int(dataset_name[-2:]),
-                    M=args.M,
-                    N=args.N,
-                    image_size=args.test_resize,
-                )
-            )
         else:
             dataframe_backed_sets.append(dataset_name)
 

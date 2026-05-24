@@ -699,8 +699,6 @@ class TestDataset(torch.utils.data.Dataset):
 
     def __len__(self):
         return len(self.images_paths)
-    
-
 class realHCDataset_N(Dataset):
     def __init__(self, base_path, M, N, transform=basic_transform):
         super().__init__()
@@ -793,53 +791,6 @@ class TestDatasetNew(torch.utils.data.Dataset):
         #         center = (lower + upper) / 2
         #         self.class_centers.append(round(center, 2))
         # # ---------------------------------------------------------------------------
-
-        self.normalize = T.Compose([
-            T.Resize(image_size, antialias=True),
-            T.ToTensor(),
-            T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ])
-
-        self.fft = args.fft
-        self.fft_log_base = args.fft_log_base
-
-    def __getitem__(self, index):
-        image_path = self.images_paths[index]
-        # class_id = self.class_id[index]
-
-        pil_image = Image.open(image_path).convert('RGB')
-        # pil_image = T.functional.resize(pil_image, self.shapes[index])
-        image = self.normalize(pil_image)
-
-        if self.fft:
-            image = tensor_fft_3D(image, self.fft_log_base)
-        
-        # if isinstance(image, tuple):
-        #     image = torch.stack(image, dim=0)
-        return image, self.class_id[index], self.heights[index], image_path
-
-    def __len__(self):
-        return len(self.images_paths)
-    
-
-class visloc_test(torch.utils.data.Dataset):
-    def __init__(self, test_folder, number, M=10, N=5, image_size=256):
-        super().__init__()
-        logging.debug(f"Searching test images in {test_folder}")
-        csv_path = os.path.join(test_folder, f'{number:02d}.csv')
-        df = pd.read_csv(csv_path)
-        images_paths = df['filename'].tolist()
-        images_paths = [os.path.join(test_folder, 'drone', image_path) for image_path in images_paths]
-
-        logging.debug(f"Found {len(images_paths)} images")
-
-        self.heights = df['height'].tolist()
-
-        class_id_group_id = [get__class_id__group_id(h, M, N) for h in self.heights]    # 得到(class_id, group_id)
-        self.images_paths = images_paths
-        self.class_centers = [id[0] + M // 2 for id in class_id_group_id]
-        self.class_id = [id[0] for id in class_id_group_id]
-        self.group_id = [id[1] for id in class_id_group_id]
 
         self.normalize = T.Compose([
             T.Resize(image_size, antialias=True),

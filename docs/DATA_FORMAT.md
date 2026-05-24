@@ -33,7 +33,6 @@ The CSV columns used by the main dataloaders are:
 | `ct01`, `ct02`, or other synthetic dataset names | `TestDataset` |
 | `new_photo` / `qd_test*` | `TestDatasetNew` |
 | `real_photo` | `realHCDataset_N` using `--val_set_path` |
-| `VL08`, `VL09`, etc. | `visloc_test` |
 
 ## Altitude Bins
 

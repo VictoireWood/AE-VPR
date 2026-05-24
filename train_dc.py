@@ -19,7 +19,7 @@ from math import sqrt
 import numpy as np
 import platform
 
-from dataloaders.HCDataset import realHCDataset_N, InfiniteDataLoader, HCDataset_shN, TestDataset, TestDatasetNew, visloc_test
+from dataloaders.HCDataset import realHCDataset_N, InfiniteDataLoader, HCDataset_shN, TestDataset, TestDatasetNew
 from models import helper
 import commons
 

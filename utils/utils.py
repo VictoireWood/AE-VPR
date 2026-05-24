@@ -2,8 +2,7 @@ import PIL.Image
 import torch
 from PIL import Image, ImageFile
 import numpy as np
-import pandas as pd
-import os
+
 def move_to_device(optimizer, device):
     for state in optimizer.state.values():
         for k, v in state.items():
@@ -108,21 +107,7 @@ def get_utm_from_path(image_path: str):
     # heights = torch.tensor(heights, dtype=torch.float16).unsqueeze(1)
 
     # utm = (float(info[-3]), float(info[-2]))
-    if len(info) == 1:  # 对应uav_visloc的测试图像
-        import utm
-        filename = os.path.basename(image_path)
-        drone_path = os.path.dirname(image_path)
-        base_path = os.path.dirname(drone_path)
-        csv_name = os.path.basename(base_path) + '.csv'
-        csv_path = os.path.join(base_path, csv_name)
-        dataframe = pd.read_csv(csv_path, encoding='utf-8')
-        dataframe_current = dataframe[dataframe['filename'] == filename]
-        lat = float(dataframe_current['lat'].iloc[0])
-        lon = float(dataframe_current['lon'].iloc[0])
-        utm_e, utm_n, _, _ = utm.from_latlon(latitude=lat, longitude=lon)
-        utm = (utm_e, utm_n)
-    
-    elif len(info[-1]) > 4:   # 对应青岛的测试图像
+    if len(info[-1]) > 4:   # 对应青岛的测试图像
         import utm
         latlon = (float(info[3]), float(info[2]))
         utm_e, utm_n, _, _ = utm.from_latlon(latitude=latlon[0], longitude=latlon[1])

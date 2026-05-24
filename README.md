@@ -26,7 +26,7 @@ The default code settings follow the main RAE configuration in the paper: `ResNe
 
 ## Datasets
 
-The paper evaluates on two synthetic datasets and two real-flight datasets:
+This release is scoped to the datasets used in the paper: two synthetic datasets and two real-flight datasets.
 
 | Dataset | Region | Acquisition | Test images | Search area | Altitude range |
 | --- | --- | --- | ---: | --- | --- |
